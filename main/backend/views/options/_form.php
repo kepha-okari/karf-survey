@@ -1,0 +1,39 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use backend\models\Questions;
+
+/* @var $this yii\web\View */
+/* @var $model backend\models\Options */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="options-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'question_id')->dropDownList(
+            #ArrayHelper::map(Questions::find()->where(['survey_id' => 1])->orderBy('title')->asArray()->all(),'id','title'),
+            ArrayHelper::map(Questions::find()->orderBy('title')->asArray()->all(),'id','title'),
+            ['prompt'=>'Select question']
+        ) ?>
+
+    <?= $form->field($model, 'state')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'choice')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'pointer')->textInput() ?>
+
+    <?= $form->field($model, 'created_at')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
