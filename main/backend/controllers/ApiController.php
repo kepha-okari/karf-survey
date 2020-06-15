@@ -115,8 +115,7 @@ class ApiController extends Controller
 
     public function actionGetCurrentSurvey() {
 
-        
-        $survey = Surveys::find()->orderBy(['id'=> SORT_DESC])->one();;
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();;
 
         if ($survey) {
             return $survey;
@@ -150,6 +149,7 @@ class ApiController extends Controller
 
 
     public function actionGetQuestion() {
+        
         $question_id = $_GET['question_id'];
 
         $question = Questions::find()->where(['id' => $question_id])->all();
@@ -204,7 +204,6 @@ class ApiController extends Controller
         $question = $_GET['question'];
         $response = $_GET['response'];
         $respondent = $_GET['respondent'];
-
         
         $sql = "INSERT INTO responses (survey_id, question, response, respondent ) VALUES ('$survey_id', '$question', '$response', '$respondent')";
         $response = \Yii::$app->db->createCommand($sql)->execute();

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\QuestionSearch */
+/* @var $model backend\models\ResponseSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="questions-search">
+<div class="responses-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,15 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'survey_id') ?>
 
-    <?= $form->field($model, 'state') ?>
+    <?= $form->field($model, 'question') ?>
 
-    <?= $form->field($model, 'question_type') ?>
+    <?= $form->field($model, 'response') ?>
 
-    <?= $form->field($model, 'title') ?>
-
-    <?php // echo $form->field($model, 'pointer') ?>
-
-    <?php // echo $form->field($model, 'question_number') ?>
+    <?= $form->field($model, 'respondent') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

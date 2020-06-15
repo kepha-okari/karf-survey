@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_name') ?>
 
+    <?= $form->field($model, 'is_active') ?>
+
     <?= $form->field($model, 'created_at') ?>
 
     <div class="form-group">

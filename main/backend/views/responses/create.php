@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Options */
+/* @var $model backend\models\Responses */
 
-$this->title = 'Create Options';
-$this->params['breadcrumbs'][] = ['label' => 'Options', 'url' => ['index']];
+$this->title = 'Create Responses';
+$this->params['breadcrumbs'][] = ['label' => 'Responses', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="options-create">
+<div class="responses-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

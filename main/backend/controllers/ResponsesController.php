@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Surveys;
-use backend\models\SurveySearch;
+use backend\models\Responses;
+use backend\models\ResponseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SurveysController implements the CRUD actions for Surveys model.
+ * ResponsesController implements the CRUD actions for Responses model.
  */
-class SurveysController extends Controller
+class ResponsesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class SurveysController extends Controller
     }
 
     /**
-     * Lists all Surveys models.
+     * Lists all Responses models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SurveySearch();
+        $searchModel = new ResponseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class SurveysController extends Controller
     }
 
     /**
-     * Displays a single Surveys model.
+     * Displays a single Responses model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class SurveysController extends Controller
     }
 
     /**
-     * Creates a new Surveys model.
+     * Creates a new Responses model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Surveys();
+        $model = new Responses();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class SurveysController extends Controller
     }
 
     /**
-     * Updates an existing Surveys model.
+     * Updates an existing Responses model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class SurveysController extends Controller
     }
 
     /**
-     * Deletes an existing Surveys model.
+     * Deletes an existing Responses model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class SurveysController extends Controller
     }
 
     /**
-     * Finds the Surveys model based on its primary key value.
+     * Finds the Responses model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Surveys the loaded model
+     * @return Responses the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Surveys::findOne($id)) !== null) {
+        if (($model = Responses::findOne($id)) !== null) {
             return $model;
         }
 

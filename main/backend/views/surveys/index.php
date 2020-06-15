@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'survey_name',
             'company_name',
+            'is_active',
             'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],

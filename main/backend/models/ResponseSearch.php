@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Options;
+use backend\models\Responses;
 
 /**
- * OptionSearch represents the model behind the search form of `backend\models\Options`.
+ * ResponseSearch represents the model behind the search form of `backend\models\Responses`.
  */
-class OptionSearch extends Options
+class ResponseSearch extends Responses
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class OptionSearch extends Options
     public function rules()
     {
         return [
-            [['id', 'question_id', 'pointer'], 'integer'],
-            [['state', 'choice', 'label', 'created_at'], 'safe'],
+            [['id', 'survey_id'], 'integer'],
+            [['question', 'response', 'respondent', 'created_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class OptionSearch extends Options
      */
     public function search($params)
     {
-        $query = Options::find();
+        $query = Responses::find();
 
         // add conditions that should always apply here
 
@@ -59,14 +59,13 @@ class OptionSearch extends Options
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'question_id' => $this->question_id,
-            'pointer' => $this->pointer,
+            'survey_id' => $this->survey_id,
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'state', $this->state])
-            ->andFilterWhere(['like', 'choice', $this->choice])
-            ->andFilterWhere(['like', 'label', $this->label]);
+        $query->andFilterWhere(['like', 'question', $this->question])
+            ->andFilterWhere(['like', 'response', $this->response])
+            ->andFilterWhere(['like', 'respondent', $this->respondent]);
 
         return $dataProvider;
     }

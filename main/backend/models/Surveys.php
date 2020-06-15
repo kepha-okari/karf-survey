@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $survey_name
  * @property string $company_name
+ * @property int $is_active
  * @property string $created_at
  *
  * @property Questions[] $questions
@@ -32,6 +33,7 @@ class Surveys extends \yii\db\ActiveRecord
     {
         return [
             [['survey_name', 'company_name'], 'required'],
+            [['is_active'], 'integer'],
             [['created_at'], 'safe'],
             [['survey_name', 'company_name'], 'string', 'max' => 256],
         ];
@@ -46,6 +48,7 @@ class Surveys extends \yii\db\ActiveRecord
             'id' => 'ID',
             'survey_name' => 'Survey Name',
             'company_name' => 'Company Name',
+            'is_active' => 'Is Active',
             'created_at' => 'Created At',
         ];
     }
