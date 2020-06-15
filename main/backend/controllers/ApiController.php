@@ -167,7 +167,7 @@ class ApiController extends Controller
 
     public function actionFetchOptions() {
        
-        $options = Questions::find()->all();
+        $options = Options::find()->all();
 
         if ($options) {
             return $options;
