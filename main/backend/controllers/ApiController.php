@@ -184,7 +184,7 @@ class ApiController extends Controller
     public function actionGetOption() {
         $option_id = $_GET['option_id'];
 
-        $option = Questions::find()->where(['id' => $option_id])->all();
+        $option = Options::find()->where(['id' => $option_id])->all();
 
         if ($option) {
             return $option;
