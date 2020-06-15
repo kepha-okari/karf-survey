@@ -64,6 +64,7 @@ class ApiController extends Controller
                     'fetch-options' => ['GET'],
                     'get-option' => ['GET'],
                     'get-surveys' => ['GET'],
+                    'get-current-survey' => ['GET'],
                     'post-response' => ['POST'],
       
                 ],
@@ -78,7 +79,7 @@ class ApiController extends Controller
      * @inheritdoc
      */
     public function beforeAction($action) {
-        if ( $action->id == 'get-surveys' || $action->id == 'fetch-questions' 
+        if ( $action->id == 'get-surveys' || $action->id == 'get-current-survey' || $action->id == 'fetch-questions' 
         || $action->id == 'get-question' || $action->id == 'fetch-options' 
         || $action->id == 'get-option' ||  $action->id == 'post-response' ){
 
@@ -97,10 +98,10 @@ class ApiController extends Controller
         // $survey_id = $_GET['survey_id'];
 
         
-        $sessions = Surveys::find()->all();
+        $surveys = Surveys::find()->all();
 
-        if ($sessions) {
-            return $sessions;
+        if ($surveys) {
+            return $surveys;
                 }else {
                 $data =  array(
                     'status' => 404,
@@ -110,6 +111,25 @@ class ApiController extends Controller
         }
 
     }
+
+
+    public function actionGetCurrentSurvey() {
+
+        
+        $survey = Surveys::find()->orderBy(['id'=> SORT_DESC])->one();;
+
+        if ($survey) {
+            return $survey;
+                }else {
+                $data =  array(
+                    'status' => 404,
+                    'status_message' => 'No answers found',
+                );
+            return $data;
+        }
+
+    }
+
 
 
 
