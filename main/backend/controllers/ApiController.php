@@ -61,8 +61,8 @@ class ApiController extends Controller
                 'actions' => [
                     'fetch-questions' => ['GET'],
                     'get-question' => ['GET'],
-                    'fetch-options' => ['GET'],
-                    'get-option' => ['GET'],
+                    'fetch-all-options' => ['GET'],
+                    'get-options' => ['GET'],
                     'get-surveys' => ['GET'],
                     'get-current-survey' => ['GET'],
                     'post-response' => ['POST'],
@@ -80,8 +80,8 @@ class ApiController extends Controller
      */
     public function beforeAction($action) {
         if ( $action->id == 'get-surveys' || $action->id == 'get-current-survey' || $action->id == 'fetch-questions' 
-        || $action->id == 'get-question' || $action->id == 'fetch-options' 
-        || $action->id == 'get-option' ||  $action->id == 'post-response' ){
+        || $action->id == 'get-question' || $action->id == 'fetch-all -options' 
+        || $action->id == 'get-options' ||  $action->id == 'post-response' ){
 
             $this->enableCsrfValidation = false;
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -165,7 +165,7 @@ class ApiController extends Controller
         }
     }
 
-    public function actionFetchOptions() {
+    public function actionFetchAllOptions() {
        
         $options = Options::find()->all();
 
@@ -181,10 +181,10 @@ class ApiController extends Controller
     }
 
 
-    public function actionGetOption() {
-        $option_id = $_GET['option_id'];
+    public function actionGetOptions() {
+        $question_id = $_GET['question_id'];
 
-        $option = Options::find()->where(['id' => $option_id])->all();
+        $option = Options::find()->where(['question_id' => $question_id])->all();
 
         if ($option) {
             return $option;
