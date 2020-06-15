@@ -136,8 +136,15 @@ class ApiController extends Controller
        
         $questions = Questions::find()->all();
 
+        $options = [];
+        foreach ($questions as $question) {
+            # code...
+            $set = Options::find()->where(['question_id' => $question->id])->all();
+            array_push($options, $set );
+        }
+
         if ($questions) {
-            return $questions;
+            return [$questions, $options];
                 }else {
                 $data =  array(
                     'status' => 404,
