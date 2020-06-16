@@ -133,8 +133,9 @@ class ApiController extends Controller
 
 
     public function actionFetchQuestions() {
-       
-        $questions = Questions::find()->all();
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();;
+
+        $questions = Questions::find()->where(['survey_id' => $survey->id ])->all();
 
         $options = [];
         foreach ($questions as $question) {
