@@ -110,7 +110,7 @@ DashboardAsset::register($this);
           <span>MAIN NAVIGATION</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="http://104.236.11.199/mswali/mswali_app/backend/web/index.php?r=site/index"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li class="active"><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=site/index"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=surveys/index"><i class="fa fa-microscope"></i> Surveys</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=questions/index"><i class="fa fa-"></i> Questions</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=options/index"><i class="fa fa-"></i> Options</a></li>
