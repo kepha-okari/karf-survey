@@ -11,9 +11,16 @@ $this->params['breadcrumbs'][] = ['label' => 'Options', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="options-view">
+<div class="options-view" style="height:100vh;padding:0px" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-info">
+    <div class="box-header">
+        <h3 class="box-title" >OPTION:  <?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -25,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    
 
     <?= DetailView::widget([
         'model' => $model,
