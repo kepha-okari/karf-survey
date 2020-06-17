@@ -11,9 +11,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="questions-view">
+<div class="questions-view" style="height:100vh;padding:0px" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-info">
+    <div class="box-header">
+        <h3 class="box-title" >QUESTION:  <?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -25,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

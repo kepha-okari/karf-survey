@@ -10,13 +10,15 @@ use yii\grid\GridView;
 $this->title = 'Options';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="options-index">
+<div class="options-index" style="height:100vh;padding:0px" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Options', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<h1><?= Html::encode($this->title) ?></h1>
+
+
+<h1  style="padding:15px">
+    <?= Html::a('Add Option', ['create'], ['class' => 'btn btn-success pull-right']) ?>
+</h1>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
