@@ -115,6 +115,7 @@ DashboardAsset::register($this);
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=questions/index"><i class="fa fa-"></i> Questions</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=options/index"><i class="fa fa-"></i> Options</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=responses/index"><i class="fa fa-"></i> Responses</a></li>
+                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i> Download Responses</a></li>
             </ul>
         </li>
       </ul>

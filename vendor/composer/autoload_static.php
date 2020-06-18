@@ -6,9 +6,40 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit94c2c558657358ce56356d6821825ef6
 {
+    public static $prefixLengthsPsr4 = array (
+        'k' => 
+        array (
+            'kartik\\grid\\' => 12,
+            'kartik\\dialog\\' => 14,
+            'kartik\\bs4dropdown\\' => 19,
+            'kartik\\base\\' => 12,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'kartik\\grid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-grid/src',
+        ),
+        'kartik\\dialog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-dialog/src',
+        ),
+        'kartik\\bs4dropdown\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-bootstrap4-dropdown/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit94c2c558657358ce56356d6821825ef6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit94c2c558657358ce56356d6821825ef6::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
