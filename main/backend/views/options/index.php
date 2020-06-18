@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'state',
             'choice',
             'label',
-            //'pointer',
+            'pointer',
             //'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],

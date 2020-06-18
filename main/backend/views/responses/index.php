@@ -10,13 +10,13 @@ use yii\grid\GridView;
 $this->title = 'Responses';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="responses-index">
+<<div class="responses-index" style="height:100vh;padding:0px" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Responses', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<h1><?= Html::encode($this->title) ?></h1>
+
+
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -26,12 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'survey_id',
+            // 'id',
+            [
+                'attribute' => 'survey_id',
+                'value'     => 'survey.survey_name' //getComp()
+            ],
             'question',
             'response',
             'respondent',
-            //'created_at',
+            'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
