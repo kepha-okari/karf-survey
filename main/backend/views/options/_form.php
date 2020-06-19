@@ -20,7 +20,10 @@ use backend\models\Questions;
             ['prompt'=>'Select question']
         ) ?>
 
-    <?= $form->field($model, 'state')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'state')->dropDownList(
+        [ 'transitional' => 'Transitional', 'end' => 'End'],
+            ['prompt'=>'Select Option State']
+    ) ?>
 
     <?= $form->field($model, 'choice')->textInput(['maxlength' => true]) ?>
 
@@ -28,7 +31,6 @@ use backend\models\Questions;
 
     <?= $form->field($model, 'pointer')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

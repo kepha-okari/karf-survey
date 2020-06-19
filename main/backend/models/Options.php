@@ -48,12 +48,12 @@ class Options extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'question_id' => 'Question ID',
+            'question_id' => 'Question',
             'state' => 'State',
             'choice' => 'Choice',
             'label' => 'Label',
             'pointer' => 'Pointer',
-            'created_at' => 'Created At',
+            'created_at' => 'Time Created',
         ];
     }
 
