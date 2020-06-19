@@ -30,7 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'survey_name',
             'company_name',
-            'is_active',
+            [
+                'attribute' => 'is_active',
+                'format'=>'raw',
+                'value'=> function ($model) {
+                    if ($model->is_active == 1)
+                    {
+                        return 'YES';
+                    } else {
+                        return 'NO';
+                    }
+                },
+           ],
             'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
