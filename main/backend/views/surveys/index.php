@@ -10,13 +10,14 @@ use yii\grid\GridView;
 $this->title = 'Surveys';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="surveys-index">
+<div class="surveys-index" style="height:100vh;padding:0px">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Surveys', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+ 
+    <h1  style="padding:15px">
+        <?= Html::a('Add Survey', ['create'], ['class' => 'btn btn-success pull-right']) ?>
+    </h1>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -38,3 +39,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+
