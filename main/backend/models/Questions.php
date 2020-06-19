@@ -52,11 +52,11 @@ class Questions extends \yii\db\ActiveRecord
             'id' => 'ID',
             'survey_id' => 'Survey ID',
             'state' => 'State',
-            'question_type' => 'Question Type',
-            'title' => 'Title',
+            'question_type' => 'Type',
+            'title' => 'Question',
             'pointer' => 'Pointer',
             'question_number' => 'Question Number',
-            'created_at' => 'Created At',
+            'created_at' => 'Time Created',
         ];
     }
 
