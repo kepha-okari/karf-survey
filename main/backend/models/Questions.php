@@ -50,7 +50,7 @@ class Questions extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'survey_id' => 'Survey ID',
+            'survey_id' => 'Survey Name',
             'state' => 'State',
             'question_type' => 'Type',
             'title' => 'Question',

@@ -91,29 +91,17 @@ class ApiController extends Controller
     }
 
     public function actionExportResponse() {
+        
         header("Content-type: application/octet-stream");
         header("Content-Disposition: attachment; filename=\"survey-responses.csv\"");
         $data = "";
 
-
         $responses = Responses::find()->all();
-        // $query = $dbo->prepare("select *  FROM student");
-        // $query->execute();
-        
+
         foreach ($responses as $response) {
             # code...
             $data.=$response->question.",".$response->response.",".$response->respondent.",".$response->created_at."\n";
         }
-
-        // for($i=0; $row = $query->fetch(PDO::FETCH_NUM); $i++){
-        // $data.="$row[0],$row[1],$row[2],$row[3],$row[4]"."\n";
-        // }
-        
-
-
-        
-        // unset($dbo); 
-        // unset($query);
         
         echo $data;
     }
