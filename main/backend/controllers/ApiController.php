@@ -102,7 +102,7 @@ class ApiController extends Controller
         
         foreach ($responses as $response) {
             # code...
-            $data.=$response->question.",".$response->response.",".$response->respondent."\n";
+            $data.=$response->question.",".$response->response.",".$response->respondent.",".$response->created_at."\n";
         }
 
         // for($i=0; $row = $query->fetch(PDO::FETCH_NUM); $i++){
