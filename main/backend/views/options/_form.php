@@ -21,8 +21,8 @@ use backend\models\Questions;
         ) ?>
 
     <?= $form->field($model, 'state')->dropDownList(
-        [ 'transitional' => 'Transitional', 'end' => 'End'],
-            ['prompt'=>'Select Option State']
+        ['transitional' => 'Go to next question after this option is picked', 'end' => 'End after this option is picked'],
+        ['prompt'=>'Select Option State']
     ) ?>
 
     <?= $form->field($model, 'choice')->textInput(['maxlength' => true]) ?>

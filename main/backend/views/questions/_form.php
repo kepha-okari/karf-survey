@@ -20,8 +20,8 @@ use backend\models\Surveys;
 
 
     <?= $form->field($model, 'state')->dropDownList(
-        [ 'transitional' => 'Carry On To Next Question', 'end' => 'End'],
-            ['prompt'=>'Select Question State (End/Carry On)']
+        [ 'transitional' => 'Carry On To Next Question After this ', 'end' => 'End After This Question'],
+            ['prompt'=>'Select Question Status )']
     ) ?>
 
 
