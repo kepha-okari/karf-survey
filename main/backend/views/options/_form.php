@@ -21,7 +21,7 @@ use backend\models\Questions;
         ) ?>
 
     <?= $form->field($model, 'state')->dropDownList(
-        ['transitional' => 'Go to next question after this option is picked', 'end' => 'End after this option is picked'],
+        ['transitional' => 'Go to next question after this option is picked', 'end' => 'End survey after this option is picked'],
         ['prompt'=>'Select Option State']
     ) ?>
 

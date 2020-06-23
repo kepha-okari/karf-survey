@@ -29,9 +29,9 @@ use backend\models\Surveys;
         [ 'open' => 'Open', 'closed' => 'Closed'],
             ['prompt'=>'Select Question Type']
     ) ?>
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'placeholder' => "Type the question e.g  What is your favourite city?"]) ?>
 
-    <?= $form->field($model, 'pointer')->textInput() ?>
+    <?= $form->field($model, 'pointer')->textInput(['placeholder' => "Enter question number of next question e.g   3"]) ?>
 
     <?= $form->field($model, 'question_number')->textInput() ?>
 
