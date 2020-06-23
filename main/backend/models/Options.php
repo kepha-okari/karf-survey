@@ -52,7 +52,7 @@ class Options extends \yii\db\ActiveRecord
             'state' => 'State',
             'choice' => 'Choice',
             'label' => 'Label',
-            'pointer' => 'Pointer',
+            'pointer' => 'Next Question',
             'created_at' => 'Time Created',
         ];
     }

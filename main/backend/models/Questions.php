@@ -54,7 +54,7 @@ class Questions extends \yii\db\ActiveRecord
             'state' => 'State',
             'question_type' => 'Type',
             'title' => 'Question',
-            'pointer' => 'Pointer',
+            'pointer' => 'Next Question',
             'question_number' => 'Question Number',
             'created_at' => 'Time Created',
         ];

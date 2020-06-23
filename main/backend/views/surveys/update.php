@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = 'Update';
 <div class="surveys-update" style="height:100vh;padding:0px" >
 
     <div class="col-md-6 col-md-offset-3">
+    
         <h1><?= Html::encode($this->title) ?></h1>
 
         <?= $this->render('_form', [
@@ -20,4 +21,5 @@ $this->params['breadcrumbs'][] = 'Update';
         ]) ?>
 
     </div>
+
 </div>
