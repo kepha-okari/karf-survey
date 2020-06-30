@@ -26,7 +26,7 @@ use backend\models\Surveys;
 
 
     <?= $form->field($model, 'question_type')->dropDownList(
-        [ 'open' => 'Open', 'closed' => 'Closed'],
+        [ 'open' => 'Open-Ended Question (No Choices)', 'closed' => 'Closed-Ended Question'],
             ['prompt'=>'Select Question Type']
     ) ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'placeholder' => "Type the question e.g  What is your favourite city?"]) ?>
