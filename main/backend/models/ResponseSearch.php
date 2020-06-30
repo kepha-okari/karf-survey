@@ -17,8 +17,8 @@ class ResponseSearch extends Responses
     public function rules()
     {
         return [
-            [['id', 'survey_id'], 'integer'],
-            [['question', 'response', 'respondent', 'created_at'], 'safe'],
+            [['id', 'survey_id', 'question_id'], 'integer'],
+            [['msisdn', 'response', 'inserted_at'], 'safe'],
         ];
     }
 
@@ -60,12 +60,12 @@ class ResponseSearch extends Responses
         $query->andFilterWhere([
             'id' => $this->id,
             'survey_id' => $this->survey_id,
-            'created_at' => $this->created_at,
+            'question_id' => $this->question_id,
+            'inserted_at' => $this->inserted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'question', $this->question])
-            ->andFilterWhere(['like', 'response', $this->response])
-            ->andFilterWhere(['like', 'respondent', $this->respondent]);
+        $query->andFilterWhere(['like', 'msisdn', $this->msisdn])
+            ->andFilterWhere(['like', 'response', $this->response]);
 
         return $dataProvider;
     }

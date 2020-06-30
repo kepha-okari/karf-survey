@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Surveys;
+use backend\models\Groups;
 
 /**
- * SurveySearch represents the model behind the search form of `backend\models\Surveys`.
+ * GrpoupSearch represents the model behind the search form of `backend\models\Groups`.
  */
-class SurveySearch extends Surveys
+class GrpoupSearch extends Groups
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class SurveySearch extends Surveys
     public function rules()
     {
         return [
-            [['id', 'frequency', 'is_active'], 'integer'],
-            [['survey_name', 'company_name', 'duration', 'message', 'created_at'], 'safe'],
+            [['id', 'survey_id'], 'integer'],
+            [['name', 'inserted_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class SurveySearch extends Surveys
      */
     public function search($params)
     {
-        $query = Surveys::find();
+        $query = Groups::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +59,11 @@ class SurveySearch extends Surveys
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'frequency' => $this->frequency,
-            'is_active' => $this->is_active,
-            'created_at' => $this->created_at,
+            'survey_id' => $this->survey_id,
+            'inserted_at' => $this->inserted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'survey_name', $this->survey_name])
-            ->andFilterWhere(['like', 'company_name', $this->company_name])
-            ->andFilterWhere(['like', 'duration', $this->duration])
-            ->andFilterWhere(['like', 'message', $this->message]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

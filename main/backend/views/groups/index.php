@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\ResponseSearch */
+/* @var $searchModel backend\models\GrpoupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Responses';
+$this->title = 'Groups';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="responses-index">
+<div class="groups-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Responses', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Groups', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -29,10 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'survey_id',
-            'msisdn',
-            'question_id',
-            'response',
-            //'inserted_at',
+            'name',
+            'inserted_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -233,7 +233,8 @@ class ApiController extends Controller
         $response = $_GET['response'];
         $respondent = $_GET['respondent'];
         
-        $sql = "INSERT INTO responses (survey_id, question, response, respondent ) VALUES ('$survey_id', '$question', '$response', '$respondent')";
+        #$sql = "INSERT INTO responses (survey_id, question, response, respondent ) VALUES ('$survey_id', '$question', '$response', '$respondent')";
+        $sql = "INSERT INTO responses (survey_id, msisdn,  question_id, response ) VALUES ('$survey_id', '$respondent', '$question', '$response')";
         $response = \Yii::$app->db->createCommand($sql)->execute();
     
         

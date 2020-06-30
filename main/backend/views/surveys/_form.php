@@ -16,10 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_active')->dropDownList(
-        [ 1 => 'YES', 0 => 'NO'],
-            ['prompt'=>'select visibility']
-    ) ?>
+    <?= $form->field($model, 'duration')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'message')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'frequency')->textInput() ?>
+
+    <?= $form->field($model, 'is_active')->textInput() ?>
+
+    <?= $form->field($model, 'created_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

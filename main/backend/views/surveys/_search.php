@@ -13,6 +13,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
@@ -21,9 +24,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_name') ?>
 
-    <?= $form->field($model, 'is_active') ?>
+    <?= $form->field($model, 'duration') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'message') ?>
+
+    <?php // echo $form->field($model, 'frequency') ?>
+
+    <?php // echo $form->field($model, 'is_active') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

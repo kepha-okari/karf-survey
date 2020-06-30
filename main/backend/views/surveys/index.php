@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SurveySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,15 +10,15 @@ use yii\grid\GridView;
 $this->title = 'Surveys';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="surveys-index" style="height:100vh;padding:0px">
+<div class="surveys-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
- 
-    <h1  style="padding:15px">
-        <?= Html::a('Add Survey', ['create'], ['class' => 'btn btn-success pull-right']) ?>
-    </h1>
+    <p>
+        <?= Html::a('Create Surveys', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
+    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -30,24 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'survey_name',
             'company_name',
-            [
-                'attribute' => 'is_active',
-                'format'=>'raw',
-                'value'=> function ($model) {
-                    if ($model->is_active == 1)
-                    {
-                        return 'YES';
-                    } else {
-                        return 'NO';
-                    }
-                },
-           ],
-            'created_at',
+            'duration',
+            'message',
+            //'frequency',
+            //'is_active',
+            //'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
+    <?php Pjax::end(); ?>
 
 </div>
-
