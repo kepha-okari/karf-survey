@@ -22,11 +22,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'survey_id') ?>
 
-    <?= $form->field($model, 'last_session') ?>
+    <?= $form->field($model, 'session_name') ?>
 
-    <?= $form->field($model, 'next_session') ?>
+    <?= $form->field($model, 'start_time') ?>
 
     <?= $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'inserted_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

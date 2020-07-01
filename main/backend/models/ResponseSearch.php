@@ -17,7 +17,7 @@ class ResponseSearch extends Responses
     public function rules()
     {
         return [
-            [['id', 'survey_id', 'question_id'], 'integer'],
+            [['id', 'survey_id', 'question_id', 'session_id'], 'integer'],
             [['msisdn', 'response', 'inserted_at'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class ResponseSearch extends Responses
             'id' => $this->id,
             'survey_id' => $this->survey_id,
             'question_id' => $this->question_id,
+            'session_id' => $this->session_id,
             'inserted_at' => $this->inserted_at,
         ]);
 

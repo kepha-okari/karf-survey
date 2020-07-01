@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'msisdn',
             'question_id',
             'response',
+            'session_id',
             'inserted_at',
         ],
     ]) ?>

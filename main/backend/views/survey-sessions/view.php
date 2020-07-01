@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'survey_id',
-            'last_session',
-            'next_session',
+            'session_name',
+            'start_time',
             'status',
+            'inserted_at',
         ],
     ]) ?>
 

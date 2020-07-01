@@ -28,6 +28,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'response') ?>
 
+    <?php // echo $form->field($model, 'session_id') ?>
+
     <?php // echo $form->field($model, 'inserted_at') ?>
 
     <div class="form-group">

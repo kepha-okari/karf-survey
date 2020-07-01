@@ -14,11 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'survey_id')->textInput() ?>
 
-    <?= $form->field($model, 'last_session')->textInput() ?>
+    <?= $form->field($model, 'session_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'next_session')->textInput() ?>
+    <?= $form->field($model, 'start_time')->textInput() ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
+
+    <?= $form->field($model, 'inserted_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

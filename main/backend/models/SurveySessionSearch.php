@@ -18,7 +18,7 @@ class SurveySessionSearch extends SurveySessions
     {
         return [
             [['id', 'survey_id', 'status'], 'integer'],
-            [['last_session', 'next_session'], 'safe'],
+            [['session_name', 'start_time', 'inserted_at'], 'safe'],
         ];
     }
 
@@ -60,10 +60,12 @@ class SurveySessionSearch extends SurveySessions
         $query->andFilterWhere([
             'id' => $this->id,
             'survey_id' => $this->survey_id,
-            'last_session' => $this->last_session,
-            'next_session' => $this->next_session,
+            'start_time' => $this->start_time,
             'status' => $this->status,
+            'inserted_at' => $this->inserted_at,
         ]);
+
+        $query->andFilterWhere(['like', 'session_name', $this->session_name]);
 
         return $dataProvider;
     }

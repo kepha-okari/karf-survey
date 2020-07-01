@@ -96,14 +96,14 @@ class ApiController extends Controller
     public function actionExportResponse() {
         
         header("Content-type: application/octet-stream");
-        header("Content-Disposition: attachment; filename=\"survey-responses.csv\"");
+        header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d H:i:s").".csv\"");
         $data = "";
 
         $responses = Responses::find()->all();
 
         foreach ($responses as $response) {
             # code...
-            $data.=$response->question.",".$response->response.",".$response->respondent.",".$response->created_at."\n";
+            $data.=$response->msisdn.",".$response->question_id.",".$response->response.",".$response->inserted_at."\n";
         }
         
         echo $data;
@@ -159,17 +159,22 @@ class ApiController extends Controller
 
         if($survey) {
             if($this->timeRange($survey->duration)){
-                $session = SurveySessions::find()->where(['survey_id' => $survey->id])->orderBy(['id' => SORT_DESC])->one();
-                $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime($session->next_session))/60;
+                $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+                $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime($session->start_time))/60;
                 if($diff_time >= 0 && $diff_time < 1 ){
                     $phone_numbers = Contacts::find()->where(['group_id' => $survey->contact_group])->all();
 
                     #set the next survey session time
                     $minutesToAdd = 60/($survey->frequency);
-                    $date1 = str_replace('-', '/', $session->next_session);
+                    $date1 = str_replace('-', '/', $session->start_time);
                     $next_session = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
 
-                    $sql = "UPDATE survey_sessions SET next_session='$next_session' WHERE id='$session->id' ";
+                    #$sql = "UPDATE survey_sessions SET start_time='$next_session', status=false WHERE id='$session->id' ";
+                    $sql = "UPDATE survey_sessions SET status=0 WHERE id='$session->id' ";
+                    $saved = \Yii::$app->db->createCommand($sql)->execute();
+
+                    $session_name = date('H:i:s');
+                    $sql = "INSERT INTO survey_sessions(survey_id, session_name, start_time) VALUES('$survey->id', '$session_name', '$next_session') ";
                     $saved = \Yii::$app->db->createCommand($sql)->execute();
 
                     foreach ($phone_numbers as $phone_number) {
@@ -179,14 +184,13 @@ class ApiController extends Controller
 
                 }
                 $minutesToAdd = 60/($survey->frequency);
-                $date1 = str_replace('-', '/', $session->next_session);
-                $next_session = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
+                $date1 = str_replace('-', '/', $session->start_time);
+                $start_time = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
            
-                return $next_session;
+                return $start_time;
             }
 
         }
-
     }
 
     public function actionGetSurveys() {
@@ -316,8 +320,11 @@ class ApiController extends Controller
         $response = $_GET['response'];
         $respondent = $_GET['respondent'];
         
+        $session = SurveySessions::find()->where(['survey_id' => $survey_id])->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
+        $session_id = $session->id;
+
         #$sql = "INSERT INTO responses (survey_id, question, response, respondent ) VALUES ('$survey_id', '$question', '$response', '$respondent')";
-        $sql = "INSERT INTO responses (survey_id, msisdn,  question_id, response ) VALUES ('$survey_id', '$respondent', '$question', '$response')";
+        $sql = "INSERT INTO responses (survey_id, msisdn,  question_id, response, session_id ) VALUES ('$survey_id', '$respondent', '$question', '$response', '$session_id')";
         $response = \Yii::$app->db->createCommand($sql)->execute();
     
         

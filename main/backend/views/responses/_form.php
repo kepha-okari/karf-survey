@@ -14,7 +14,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'survey_id')->textInput() ?>
 
+    <?= $form->field($model, 'msisdn')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'question_id')->textInput() ?>
+
     <?= $form->field($model, 'response')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'session_id')->textInput() ?>
+
+    <?= $form->field($model, 'inserted_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
