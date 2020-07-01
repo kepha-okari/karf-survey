@@ -106,7 +106,7 @@ class ApiController extends Controller
         $responses = Responses::find()->where(['survey_id'=>$survey->id])->all();
         $questions = Questions::find()->where(['survey_id' => $survey->id])->all();
         
-        $header ="#,SURVEY,MSISDN,DATE";
+        $header ="SURVEY,MSISDN,DATE";
         $quiz_items = "";
         foreach ($questions as $question) {
             # code...
