@@ -160,7 +160,6 @@ class ApiController extends Controller
         if($survey) {
             if($this->timeRange($survey->duration)){
                 $session = SurveySessions::find()->where(['survey_id' => $survey->id])->orderBy(['id' => SORT_DESC])->one();
-                #return $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime("2020/06/30 21:00:00"))/60; 
                 $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime($session->next_session))/60;
                 if($diff_time >= 0 && $diff_time < 1 ){
                     $phone_numbers = Contacts::find()->where(['group_id' => $survey->contact_group])->all();
@@ -176,7 +175,6 @@ class ApiController extends Controller
                     foreach ($phone_numbers as $phone_number) {
                         # code...
                         $this->sendSMS($survey->message, $phone_number->contact);
-                        #deactivate the session
                     }
 
                 }
