@@ -99,24 +99,40 @@ class ApiController extends Controller
         header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d H:i:s").".csv\"");
         $data = "";
 
-        $session_id = $_GET['session_id'];
+        #$session_id = $_GET['session_id'];
 
         $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
         #$session = SurveySessions::find()->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
-        $responses = Responses::find()->all();
+        $responses = Responses::find()->where(['survey_id'=>$survey->id])->all();
+        $questions = Questions::find()->where(['survey_id' => $survey->id])->all();
         
+        $header ="#,SURVEY,MSISDN,DATE";
+        $quiz_items = "";
+        foreach ($questions as $question) {
+            # code...
+            $quiz_items.=",".strtoupper($question->title);
+        }
+        $header.=$quiz_items."\n";
 
+        $profile="";
         foreach ($responses as $response) {
             # code...
-            $data.=$response->msisdn.",".$response->question_id.",".$response->response.",".$response->inserted_at."\n";
-            // $header ="SURVEY,MSISDN,DATE";
-            // $header.=$response->response.",".$response->inserted_at."\n";
-            // $data.=$header;
-
+            $profile.=$response->survey_id.",".$response->msisdn.",".$response->inserted_at.",";
+            $resp="";
+            foreach ($questions as $question) {
+                # code...
+                $resp.=(($question->id==$response->question_id)?$response->response:"NR").",";
+            }
         }
-        
-        echo $data;
+        $header.=$profile.$resp;
+        echo $data.=$header;
+
     }
+
+
+
+
+
 
     public function timeRange($timeOfDay){
         date_default_timezone_set('Africa/Nairobi');
