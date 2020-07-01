@@ -16,9 +16,11 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use backend\models\Surveys;
+use backend\models\Contacts;
 use backend\models\Options;
 use backend\models\Questions;
 use backend\models\Responses;
+use backend\models\SurveySessions;
 
 
 
@@ -66,6 +68,7 @@ class ApiController extends Controller
                     'get-surveys' => ['GET'],
                     'get-current-survey' => ['GET'],
                     'post-response' => ['POST'],
+                    'send-notifications' => ['GET'],
                     'export-response' => ['GET'],
       
                 ],
@@ -81,7 +84,7 @@ class ApiController extends Controller
      */
     public function beforeAction($action) {
         if ( $action->id == 'get-surveys' || $action->id == 'get-current-survey' || $action->id == 'fetch-questions' 
-        || $action->id == 'get-question' || $action->id == 'fetch-all -options' 
+        || $action->id == 'get-question' || $action->id == 'fetch-all -options' || $action->id == 'send-notifications' 
         || $action->id == 'get-options' ||  $action->id == 'post-response' ||  $action->id == 'export-response' ){
 
             $this->enableCsrfValidation = false;
@@ -104,6 +107,88 @@ class ApiController extends Controller
         }
         
         echo $data;
+    }
+
+    public function timeRange($timeOfDay){
+        date_default_timezone_set('Africa/Nairobi');
+        // $currentTime = date("G:i A");
+        $currentTime =  date('d M Y H:i:s');
+        $current_hour   =   date('H', strtotime($currentTime));
+
+
+        if($timeOfDay == "morning" ){
+            #if( $currentTime > date("4.00 AM") && $currentTime < date("G:i A", strtotime('12:00 PM')) ) {
+            if($current_hour > 4 && $current_hour < 12) {
+                return true;
+            }else{
+                return false;
+                
+            }
+        }elseif($timeOfDay == "afternoon"){
+            #if( $currentTime > date("12:00") && $currentTime < date("G:i A", strtotime('15:00')) ) {
+            if($current_hour >= 12 && $current_hour <= 15) {
+
+                return true;
+            }else{
+                return false;
+            }
+        }elseif($timeOfDay == "evening"){
+            #if( $currentTime > date("15:00") && $currentTime < date("G:i A", strtotime('18:00')) ) {
+            if($current_hour >= 16 && $current_hour <= 18) {
+                return true;
+            }else{
+                return false;
+            }
+        }elseif($timeOfDay == "all-day"){
+            #if( $currentTime > date("03:00") && $currentTime < date("G:i A", strtotime('18:00')) ) {
+            if($current_hour >= 04 && $current_hour <= 18) {
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+          
+    }
+
+
+    public function actionSendNotifications() {
+
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
+
+        if($survey) {
+            if($this->timeRange($survey->duration)){
+                $session = SurveySessions::find()->where(['survey_id' => $survey->id])->orderBy(['id' => SORT_DESC])->one();
+                #return $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime("2020/06/30 21:00:00"))/60; 
+                $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime($session->next_session))/60;
+                if($diff_time >= 0 && $diff_time < 1 ){
+                    $phone_numbers = Contacts::find()->where(['group_id' => $survey->contact_group])->all();
+
+                    #set the next survey session time
+                    $minutesToAdd = 60/($survey->frequency);
+                    $date1 = str_replace('-', '/', $session->next_session);
+                    $next_session = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
+
+                    $sql = "UPDATE survey_sessions SET next_session='$next_session' WHERE id='$session->id' ";
+                    $saved = \Yii::$app->db->createCommand($sql)->execute();
+
+                    foreach ($phone_numbers as $phone_number) {
+                        # code...
+                        $this->sendSMS($survey->message, $phone_number->contact);
+                        #deactivate the session
+                    }
+
+                }
+                $minutesToAdd = 60/($survey->frequency);
+                $date1 = str_replace('-', '/', $session->next_session);
+                $next_session = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
+           
+                return $next_session;
+            }
+
+        }
+
     }
 
     public function actionGetSurveys() {
@@ -147,7 +232,7 @@ class ApiController extends Controller
 
 
     public function actionFetchQuestions() {
-        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();;
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
 
         $questions = Questions::find()->where(['survey_id' => $survey->id ])->all();
 
@@ -248,6 +333,31 @@ class ApiController extends Controller
             return $data;
         }
 
+    }
+
+    public function sendSMS($message, $msisdn){
+        
+        $url = 'https://app.bongasms.co.ke/api/send-sms-v1';
+
+        $post_data = http_build_query([
+            "apiClientID" => 89,
+            "key" => 'bfbp5vAovgAgY4B',
+            "secret" => 'lSf6YheFI3K7krY0vEPCXoka1nnik9',
+            "txtMessage" => $message,
+            "MSISDN" => $msisdn,
+            "serviceID" => 1
+        ]);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded '));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+
+        $result = json_decode($result);
+        return $result;
     }
 
 }

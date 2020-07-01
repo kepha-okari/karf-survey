@@ -17,7 +17,7 @@ class SurveySearch extends Surveys
     public function rules()
     {
         return [
-            [['id', 'frequency', 'is_active'], 'integer'],
+            [['id', 'contact_group', 'frequency', 'is_active'], 'integer'],
             [['survey_name', 'company_name', 'duration', 'message', 'created_at'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class SurveySearch extends Surveys
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'contact_group' => $this->contact_group,
             'frequency' => $this->frequency,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,

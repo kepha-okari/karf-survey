@@ -28,6 +28,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'message') ?>
 
+    <?php // echo $form->field($model, 'contact_group') ?>
+
     <?php // echo $form->field($model, 'frequency') ?>
 
     <?php // echo $form->field($model, 'is_active') ?>
