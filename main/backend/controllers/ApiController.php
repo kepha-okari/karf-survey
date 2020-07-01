@@ -93,6 +93,8 @@ class ApiController extends Controller
         return parent::beforeAction($action);
     }
 
+
+
     public function actionExportResponse() {
         
         header("Content-type: application/octet-stream");
@@ -112,19 +114,20 @@ class ApiController extends Controller
             # code...
             $quiz_items.=",".strtoupper($question->title);
         }
+        
         $header.=$quiz_items."\n";
 
-        $profile="";
-        foreach ($responses as $response) {
-            # code...
-            $profile.=$response->survey_id.",".$response->msisdn.",".$response->inserted_at.",";
-            $resp="";
-            foreach ($questions as $question) {
-                # code...
-                $resp.=(($question->id==$response->question_id)?$response->response:"NR").",";
-            }
-        }
-        $header.=$profile.$resp;
+        // $profile="";
+        // foreach ($responses as $response) {
+        //     $profile.=$response->survey_id.",".$response->msisdn.",".$response->inserted_at.",";
+        //     $resp="";
+        //     foreach ($questions as $question) {
+        //         $resp.=",".(($question->id==$response->question_id)?$response->response:"NR").",";
+        //     }
+        // }
+        #$profile.=$resp;
+        
+        // $header.=$resp;
         echo $data.=$header;
 
     }
@@ -166,7 +169,7 @@ class ApiController extends Controller
             }
         }elseif($timeOfDay == "all-day"){
             #if( $currentTime > date("03:00") && $currentTime < date("G:i A", strtotime('18:00')) ) {
-            if($current_hour >= 04 && $current_hour <= 18) {
+            if($current_hour >= 06 && $current_hour <= 18) {
                 return true;
             }else{
                 return false;
@@ -256,8 +259,6 @@ class ApiController extends Controller
     }
 
 
-
-
     public function actionFetchQuestions() {
         $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
 
@@ -304,6 +305,7 @@ class ApiController extends Controller
             return $data;
         }
     }
+
 
     public function actionFetchAllOptions() {
        
@@ -364,6 +366,7 @@ class ApiController extends Controller
         }
 
     }
+
 
     public function sendSMS($message, $msisdn){
         
