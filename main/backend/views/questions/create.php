@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-
+use backend\models\Questions;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Questions */
 
@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="col-md-6 col-md-offset-3">
-        <h1><?= Html::encode($this->title) ?></h1>
 
         <?= $this->render('_form', [
             'model' => $model,

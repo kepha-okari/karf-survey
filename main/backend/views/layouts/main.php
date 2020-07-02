@@ -5,7 +5,10 @@
 
 use backend\assets\DashboardAsset;
 use yii\helpers\Html;
+use backend\models\Questions;
 
+
+$questions = Questions::find()->all();
 
 DashboardAsset::register($this);
 ?>
@@ -111,10 +114,12 @@ DashboardAsset::register($this);
           </a>
             <ul class="treeview-menu">
                 <li class="active"><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=site/index"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=surveys/index"><i class="fa fa-microscope"></i> Surveys</a></li>
+                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=surveys/index"><i class="fa fa-microscope"></i>Surveys</a></li>
+                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=survey-sessions/index"><i class="fa fa-microscope"></i>Survey Sessions</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=questions/index"><i class="fa fa-"></i> Questions</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=options/index"><i class="fa fa-"></i> Options</a></li>
-                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=responses/index"><i class="fa fa-"></i> Responses</a></li>
+                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=groups/index"><i class="fa fa-"></i> Groups</a></li>
+                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=responses%2Findex&sort=-inserted_at"><i class="fa fa-"></i> Responses</a></li>
                 <li><a href="https://app.bongasms.co.ke/site/login"><i class="fa fa-"></i> BongaSMS</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i> Download Responses</a></li>
             </ul>

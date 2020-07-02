@@ -20,9 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-6 col-md-offset-3">
 
         <?= $this->render('_form', [
-            'model' => $model,
+            'model' => $model
         ]) ?>
 
     </div>
+
+   
 
 </div>

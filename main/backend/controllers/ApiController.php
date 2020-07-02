@@ -146,10 +146,7 @@ class ApiController extends Controller
     }
 
 
-
-
-
-
+    
     public function timeRange($timeOfDay){
         date_default_timezone_set('Africa/Nairobi');
         // $currentTime = date("G:i A");

@@ -9,12 +9,23 @@ $this->title = 'Create Groups';
 $this->params['breadcrumbs'][] = ['label' => 'Groups', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="groups-create">
+<div class="groups-create"style="height:100vh;padding:0px" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-info">
+    <div class="box-header">
+        <h3 class="box-title" > <?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
+
+
+
+</div>
 </div>

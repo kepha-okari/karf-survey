@@ -46,7 +46,7 @@ class Contacts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'contact' => 'Contact',
-            'group_id' => 'Group ID',
+            'group_id' => 'Contact Group',
             'inserted_at' => 'Inserted At',
         ];
     }

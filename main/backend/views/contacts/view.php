@@ -6,15 +6,21 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Contacts */
 
-$this->title = $model->id;
+$this->title = $model->contact;
 $this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="contacts-view">
+<div class="contacts-view"style="height:100vh;padding:0px" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-info">
+    <div class="box-header">
+        <h3 class="box-title" >UPDATE: <?= Html::encode($this->title) ?></h3>
+    </div>
+</div>
 
+
+<div class="col-md-6 col-md-offset-3">
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -36,4 +42,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>
