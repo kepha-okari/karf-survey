@@ -114,20 +114,31 @@ class ApiController extends Controller
             # code...
             $quiz_items.=",".strtoupper($question->title);
         }
-        
         $header.=$quiz_items."\n";
 
-        // $profile="";
-        // foreach ($responses as $response) {
-        //     $profile.=$response->survey_id.",".$response->msisdn.",".$response->inserted_at.",";
-        //     $resp="";
-        //     foreach ($questions as $question) {
-        //         $resp.=",".(($question->id==$response->question_id)?$response->response:"NR").",";
-        //     }
-        // }
-        #$profile.=$resp;
+        $profile="";
+        foreach ($responses as $response) {
+            $profile.=$response->survey_id.",".$response->msisdn.",".$response->inserted_at;
+            $resp="";
+            foreach ($questions as $question) {
+                # fetch this particular response from respondent if it exists
+                $attempt = Responses::find()->where(['survey_id' => $survey->id])->andWhere(['msisdn'=>$response->msisdn])
+                                            ->andWhere(['question_id'=>$question->id])
+                                            ->orderBy(['id' => SORT_DESC])->one();
+
+
+                if($attempt){
+                        $resp.=",".$attempt->response;
+                }else{
+                    $resp.=","."NR";
+                }
+                #$resp.=",".($response->response?$response->response:"NR");
+            }
+            $profile.=$resp."\n";
+            
+        }
         
-        // $header.=$resp;
+        $header.=$profile;
         echo $data.=$header;
 
     }
