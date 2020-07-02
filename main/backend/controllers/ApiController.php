@@ -357,6 +357,7 @@ class ApiController extends Controller
         $response = $_GET['response'];
         $respondent = $_GET['respondent'];
         
+      
         $session = SurveySessions::find()->where(['survey_id' => $survey_id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
         $session_id = $session->id;
 
