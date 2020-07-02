@@ -101,7 +101,7 @@ class ApiController extends Controller
         header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d H:i:s").".csv\"");
         $data = "";
 
-        #$session_id = $_GET['session_id'];
+        $session_id = $_GET['session_id'];
 
         $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
         #$session = SurveySessions::find()->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
@@ -357,7 +357,7 @@ class ApiController extends Controller
         $response = $_GET['response'];
         $respondent = $_GET['respondent'];
         
-        $session = SurveySessions::find()->where(['survey_id' => $survey_id])->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
+        $session = SurveySessions::find()->where(['survey_id' => $survey_id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
         $session_id = $session->id;
 
         #$sql = "INSERT INTO responses (survey_id, question, response, respondent ) VALUES ('$survey_id', '$question', '$response', '$respondent')";
