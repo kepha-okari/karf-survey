@@ -119,7 +119,8 @@ class ApiController extends Controller
 
         $profile="";
         foreach ($responses as $response) {
-            $profile.=$response->survey_id.",".$response->msisdn.",".$response->inserted_at;
+            $respondent = Responses::find()->where(['survey_id'=>$survey->id])->andWhere(['msisdn'=>$response])->one();
+            $profile.=$respondent->survey_id.",".$respondent->msisdn.",".$respondent->inserted_at;
             $resp="";
             foreach ($questions as $question) {
                 # fetch this particular response from respondent if it exists
