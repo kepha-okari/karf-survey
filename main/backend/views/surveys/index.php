@@ -10,13 +10,12 @@ use yii\widgets\Pjax;
 $this->title = 'Surveys';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="surveys-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="options-index" style="height:100vh;padding:0px" >
+    <h1  style="padding:15px">
+        <?= Html::a('Add Survey', ['create'], ['class' => 'btn btn-success pull-right']) ?>
+    </h1>
 
-    <p>
-        <?= Html::a('Create Surveys', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,15 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'survey_name',
             'company_name',
             'duration',
             'message',
-            //'contact_group',
-            //'frequency',
-            //'is_active',
-            //'created_at',
+            'contact_group',
+            'frequency',
+            'is_active',
+            // 'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

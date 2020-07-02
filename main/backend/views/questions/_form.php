@@ -16,7 +16,7 @@ use backend\models\Surveys;
     <?= $form->field($model, 'survey_id')->dropDownList(
             ArrayHelper::map(Surveys::find()->where(['is_active' => 1])->orderBy('survey_name')->asArray()->all(),'id','survey_name'),
             ['prompt'=>'Select an active Survey']
-        ) ?>
+    ) ?>
 
 
     <?= $form->field($model, 'state')->dropDownList(

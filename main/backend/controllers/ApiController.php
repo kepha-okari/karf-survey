@@ -101,12 +101,11 @@ class ApiController extends Controller
         header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d H:i:s").".csv\"");
         $data = "";
 
-        #$session_id = $_GET['session_id'];
+        $session_id = $_GET['session_id'];
 
         $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
         #$session = SurveySessions::find()->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
-        #$responses = Responses::find()->where(['survey_id'=>$survey->id])->all();
-        $responses = Responses::find()->select('msisdn')->distinct()->where(['survey_id'=>$survey->id])->all();
+        $responses = Responses::find()->select('msisdn')->distinct()->where(['survey_id'=>$survey->id])->andWhere(['session_id'=>1])->all();
         $questions = Questions::find()->where(['survey_id' => $survey->id])->all();
         
         $header ="SURVEY,MSISDN,DATE";
@@ -119,7 +118,8 @@ class ApiController extends Controller
 
         $profile="";
         foreach ($responses as $response) {
-            $respondent = Responses::find()->where(['survey_id'=>$survey->id])->andWhere(['msisdn'=>$response])->one();
+            $respondent = Responses::find()->where(['survey_id'=>$survey->id])->andWhere(['msisdn'=>$response])->andWhere(['session_id'=>1])->one();
+            
             $profile.=$respondent->survey_id.",".$respondent->msisdn.",".$respondent->inserted_at;
             $resp="";
             foreach ($questions as $question) {

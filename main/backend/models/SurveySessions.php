@@ -48,7 +48,7 @@ class SurveySessions extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'survey_id' => 'Survey ID',
+            'survey_id' => 'Survey',
             'session_name' => 'Session Name',
             'start_time' => 'Start Time',
             'status' => 'Status',
