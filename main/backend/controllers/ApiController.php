@@ -105,7 +105,8 @@ class ApiController extends Controller
 
         $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
         #$session = SurveySessions::find()->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
-        $responses = Responses::find()->where(['survey_id'=>$survey->id])->all();
+        #$responses = Responses::find()->where(['survey_id'=>$survey->id])->all();
+        $responses = Responses::find()->select('msisdn')->distinct()->where(['survey_id'=>$survey->id])->all();
         $questions = Questions::find()->where(['survey_id' => $survey->id])->all();
         
         $header ="SURVEY,MSISDN,DATE";
