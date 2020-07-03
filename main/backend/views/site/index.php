@@ -93,7 +93,6 @@ $this->title = 'survey';
           <div class="icon">
             <i class="fa fa-file"></i>
           </div>
-              <a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=survey-sessions/index" class="small-box-footer">
                   More info <i class="fa fa-arrow-circle-right"></i>
               </a>
         </div>
