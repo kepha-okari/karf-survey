@@ -32,7 +32,7 @@ $this->title = 'survey';
             <div class="icon">
               <i class="fa fa-group"></i>
             </div>
-                <a href="http://161.35.6.91/mswali/mswali_app/backend/web/index.php?r=users/index" class="small-box-footer">
+                <a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=responses/index" class="small-box-footer">
                     More info <i class="fa fa-arrow-circle-right"></i>
                 </a>
           </div>
@@ -51,7 +51,7 @@ $this->title = 'survey';
           <div class="icon">
             <i class="fa fa-bell"></i>
           </div>
-              <a href="http://104.236.11.199/questionnaire/main/backend/web/index.phpr=contacts/index" class="small-box-footer">
+              <a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=contacts/index" class="small-box-footer">
                   More info <i class="fa fa-arrow-circle-right"></i>
               </a>
         </div>
@@ -93,7 +93,7 @@ $this->title = 'survey';
           <div class="icon">
             <i class="fa fa-file"></i>
           </div>
-              <a href="http://161.35.6.91/mswali/mswali_app/backend/web/index.php?r=survey-sessions/index" class="small-box-footer">
+              <a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=survey-sessions/index" class="small-box-footer">
                   More info <i class="fa fa-arrow-circle-right"></i>
               </a>
         </div>
