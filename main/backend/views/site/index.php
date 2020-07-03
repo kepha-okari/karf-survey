@@ -68,7 +68,7 @@ $this->title = 'survey';
         <div class="inner">
           <h3>
             <small><sup style="font-size: 20px"></sup></small>
-              Students
+              General Public
             </h3>
 
             <p >Current Contact Group</p>
