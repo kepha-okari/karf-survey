@@ -131,7 +131,7 @@ $this->title = 'survey';
                           <div class="tab-pane active" id="red">
                               <h3 style="margin-top:20px">WHICH OF THESE DID YOU DO?</h3>
 
-                              <div>
+                              <div style="margin:0 auto">
                                   <span class="w3-badge w3-jumbo w3-red w3-padding">66</span>
                                   <p style="margin-top:20px;margin-left:10px">Respondents </p>
                               </div>
@@ -215,8 +215,8 @@ $this->title = 'survey';
                                   <td>53%</td>
                                   </tr>
                                   <tr>
-                                  <th scope="row">4</th>
-                                  <td>what is you favourite site?</td>
+                                  <th scope="row">5</th>
+                                  <td>What is you favourite site?</td>
                                   <td>Twitter</td>
                                   <td>54%</td>
                                   </tr>
