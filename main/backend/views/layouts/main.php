@@ -129,7 +129,8 @@ DashboardAsset::register($this);
 
                     <?php 
                         $today = date("Y-m-d");
-                        $sessions = SurveySessions::find()->where(['>=','inserted_at', $today])->limit(4)->orderBy(['id' => SORT_DESC])->all();
+                        #$sessions = SurveySessions::find()->where(['>=','inserted_at', $today])->limit(4)->orderBy(['id' => SORT_DESC])->all();
+                        $sessions = SurveySessions::find()->where(['>=','inserted_at', $today])->orderBy(['id' => SORT_DESC])->all();
 
                         if($sessions){
                           foreach ($sessions as $session) {
