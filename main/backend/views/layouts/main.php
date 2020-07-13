@@ -135,13 +135,13 @@ DashboardAsset::register($this);
                         if($sessions){
                           foreach ($sessions as $session) {
                             # code...
-                            $link = "http://localhost/questionnaire/main/backend/web/index.php?r=api/export-response&session_id=".$session->id.">Export Session ".$session->session_name."</a>";
+                            $link = "http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response&session_id=".$session->id.">Export Session ".$session->session_name."</a>";
                             echo '<li><a href=';
                             echo    $link;
                             echo  '</li>';
                           }
                         }else{
-                            echo '<li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i>No Survey Session Yet</a></li>' ;
+                            echo '<li><a href="#"><i class="fa fa-"></i>No Survey Session Yet</a></li>' ;
 
                         }
 
