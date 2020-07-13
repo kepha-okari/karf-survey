@@ -224,21 +224,23 @@ $this->title = 'survey';
                                 </tbody>
                               </table>
                           </div>
-              
-
-                       
+                                     
                       </div>
-          <script type="text/javascript">
-              jQuery(document).ready(function ($) {
-                  $('#tabs').tab();
-              });
-              $('button').addClass('btn-primary').text('Switch to Orange Tab');
-              $('button').click(function(){
-                $('#tabs a[href=#orange]').tab('show');
-              });
-          </script>    
-          <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+                  </div>
+
+                  <script type="text/javascript">
+                      jQuery(document).ready(function ($) {
+                          $('#tabs').tab();
+                      });
+                      $('button').addClass('btn-primary').text('Switch to Orange Tab');
+                      $('button').click(function(){
+                        $('#tabs a[href=#orange]').tab('show');
+                      });
+                  </script>    
+                  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+                  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                  
         </div>
         <!-- /.col -->
 

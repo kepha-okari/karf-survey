@@ -93,19 +93,73 @@ class ApiController extends Controller
         return parent::beforeAction($action);
     }
 
+    public function generateCSV($session_id) {
 
+        #$session_id = $_GET['session_id'];
 
-    public function actionExportResponse() {
         
         header("Content-type: application/octet-stream");
         header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d H:i:s").".csv\"");
         $data = "";
 
-        #$session_id = $_GET['session_id'];
 
         $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
         #$session = SurveySessions::find()->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
-        $responses = Responses::find()->select('msisdn')->distinct()->where(['survey_id'=>$survey->id])->all();
+        $responses = Responses::find()->select('msisdn')->distinct()->where(['survey_id'=>$survey_id])->all();
+        $questions = Questions::find()->where(['survey_id' => $survey->id])->all();
+        
+        $header ="SURVEY,MSISDN,DATE";
+        $quiz_items = "";
+        foreach ($questions as $question) {
+            # code...
+            $quiz_items.=",".strtoupper($question->title);
+        }
+        $header.=$quiz_items."\n";
+
+        $profile="";
+        foreach ($responses as $response) {
+            $respondent = Responses::find()->where(['survey_id'=>$survey->id])->andWhere(['msisdn'=>$response])->one();
+            
+            $profile.=$respondent->survey_id.",".$respondent->msisdn.",".$respondent->inserted_at;
+            $resp="";
+            foreach ($questions as $question) {
+                # fetch this particular response from respondent if it exists
+                $attempt = Responses::find()->where(['survey_id' => $survey->id])->andWhere(['msisdn'=>$response->msisdn])
+                                            ->andWhere(['question_id'=>$question->id])
+                                            ->orderBy(['id' => SORT_DESC])->one();
+
+
+                if($attempt){
+                        $resp.=",".$attempt->response;
+                }else{
+                    $resp.=","."NR";
+                }
+                #$resp.=",".($response->response?$response->response:"NR");
+            }
+            $profile.=$resp."\n";
+            
+        }
+        
+        $header.=$profile;
+        echo $data.=$header;
+
+    }
+
+    public function actionExportResponse() {
+
+        $session_id = $_GET['session_id'];
+
+        $responses =SurveySessions::find()->where(['id'=>$session_id])->one();
+
+        header("Content-type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d")."-".$responses->session_name.".csv\"");
+        $data = "";
+
+
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
+        #$session = SurveySessions::find()->andwhere(['status' => 0])->orderBy(['id' => SORT_DESC])->one();
+        $responses = Responses::find()->select('msisdn')->distinct()->where(['session_id'=>$session_id])->all();
+        #$responses = Responses::find()->select('msisdn')->distinct()->where(['survey_id'=>$survey->id])->all();
         $questions = Questions::find()->where(['survey_id' => $survey->id])->all();
         
         $header ="SURVEY,MSISDN,DATE";

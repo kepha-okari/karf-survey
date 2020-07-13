@@ -6,6 +6,8 @@
 use backend\assets\DashboardAsset;
 use yii\helpers\Html;
 use backend\models\Questions;
+use backend\models\Surveys;
+use backend\models\SurveySessions;
 
 
 $questions = Questions::find()->all();
@@ -121,7 +123,36 @@ DashboardAsset::register($this);
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=groups/index"><i class="fa fa-"></i> Groups</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=responses%2Findex&sort=-inserted_at"><i class="fa fa-"></i> Responses</a></li>
                 <li><a href="https://app.bongasms.co.ke/site/login"><i class="fa fa-"></i> BongaSMS</a></li>
-                <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i> Download Responses</a></li>
+                <li class="active treeview">
+                  <a href="#"><span>TODAY'S RESPONSES</span> <i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+
+                    <?php 
+                        $today = date("Y-m-d");
+                        $sessions = SurveySessions::find()->where(['>=','inserted_at', $today])->limit(4)->orderBy(['id' => SORT_DESC])->all();
+
+                        if($sessions){
+                          foreach ($sessions as $session) {
+                            # code...
+                            $link = "http://localhost/questionnaire/main/backend/web/index.php?r=api/export-response&session_id=".$session->id.">Export Session ".$session->session_name."</a>";
+                            echo '<li><a href=';
+                            echo    $link;
+                            echo  '</li>';
+                          }
+                        }else{
+                            echo '<li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i>No  Survey Session Today</a></li>' ;
+
+                        }
+
+                        
+                        #echo '<li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i> Download Responses</a></li>' 
+                    ?>
+
+                  </ul>
+                </li>
+                  
+    
+                
             </ul>
         </li>
       </ul>
