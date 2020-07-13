@@ -141,7 +141,7 @@ DashboardAsset::register($this);
                             echo  '</li>';
                           }
                         }else{
-                            echo '<li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i>No  Survey Session Today</a></li>' ;
+                            echo '<li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i>No Survey Session Yet</a></li>' ;
 
                         }
 
