@@ -150,6 +150,7 @@ class ApiController extends Controller
         $session_id = $_GET['session_id'];
 
         $responses =SurveySessions::find()->where(['id'=>$session_id])->one();
+        
 
         header("Content-type: application/octet-stream");
         header("Content-Disposition: attachment; filename=\"survey-responses-".date("Y-m-d")."-".$responses->session_name.".csv\"");
