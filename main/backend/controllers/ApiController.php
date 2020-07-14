@@ -254,11 +254,12 @@ class ApiController extends Controller
             if($this->timeRange($survey->duration)){
                 $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
                 $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime($session->start_time))/60;
+                
                 if($diff_time >= 0 && $diff_time < 1 ){
                     $phone_numbers = Contacts::find()->where(['group_id' => $survey->contact_group])->all();
 
                     #set the next survey session time
-                    $minutesToAdd = 60/($survey->frequency);
+                    $minutesToAdd = 720/($survey->frequency);
                     $date1 = str_replace('-', '/', $session->start_time);
                     $next_session = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
 
