@@ -173,7 +173,7 @@ class ApiController extends Controller
 
         $profile="";
         foreach ($responses as $response) {
-            $respondent = Responses::find()->where(['survey_id'=>$survey->id])->andWhere(['msisdn'=>$response])->one();
+            $respondent = Responses::find()->where(['session_id'=>$session_id])->andWhere(['msisdn'=>$response])->one();
             
             $profile.=$respondent->survey_id.",".$respondent->msisdn.",".$respondent->inserted_at;
             $resp="";
@@ -181,6 +181,7 @@ class ApiController extends Controller
                 # fetch this particular response from respondent if it exists
                 $attempt = Responses::find()->where(['survey_id' => $survey->id])->andWhere(['msisdn'=>$response->msisdn])
                                             ->andWhere(['question_id'=>$question->id])
+                                            ->andWhere(['session_id'=>$session_id])
                                             ->orderBy(['id' => SORT_DESC])->one();
 
 
@@ -254,7 +255,7 @@ class ApiController extends Controller
             if($this->timeRange($survey->duration)){
                 $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
                 $diff_time=(strtotime(date("Y/m/d H:i:s"))-strtotime($session->start_time))/60;
-                
+
                 if($diff_time >= 0 && $diff_time < 1 ){
                     $phone_numbers = Contacts::find()->where(['group_id' => $survey->contact_group])->all();
 
