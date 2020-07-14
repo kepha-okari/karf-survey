@@ -276,7 +276,7 @@ class ApiController extends Controller
                     }
 
                 }
-                $minutesToAdd = 60/($survey->frequency);
+                $minutesToAdd = 720/($survey->frequency);
                 $date1 = str_replace('-', '/', $session->start_time);
                 $start_time = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
            
