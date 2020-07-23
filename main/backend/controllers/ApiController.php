@@ -67,6 +67,7 @@ class ApiController extends Controller
                     'get-options' => ['GET'],
                     'get-surveys' => ['GET'],
                     'get-current-survey' => ['GET'],
+                    'get-current-session' => ['GET'],
                     'post-response' => ['POST'],
                     'send-notifications' => ['GET'],
                     'export-response' => ['GET'],
@@ -83,7 +84,7 @@ class ApiController extends Controller
      * @inheritdoc
      */
     public function beforeAction($action) {
-        if ( $action->id == 'get-surveys' || $action->id == 'get-current-survey' || $action->id == 'fetch-questions' 
+        if ( $action->id == 'get-surveys' || $action->id == 'get-current-survey' || $action->id == 'get-current-session' || $action->id == 'fetch-questions' 
         || $action->id == 'get-question' || $action->id == 'fetch-all -options' || $action->id == 'send-notifications' 
         || $action->id == 'get-options' ||  $action->id == 'post-response' ||  $action->id == 'export-response' ){
 
@@ -311,7 +312,7 @@ class ApiController extends Controller
 
     public function actionGetCurrentSurvey() {
 
-        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();;
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
 
         if ($survey) {
             return $survey;
@@ -319,6 +320,24 @@ class ApiController extends Controller
                 $data =  array(
                     'status' => 404,
                     'status_message' => 'No answers found',
+                );
+            return $data;
+        }
+
+    }
+
+
+
+    public function actionGetCurrentSession() {
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
+        $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+
+        if ($session) {
+            return $session;
+                }else {
+                $data =  array(
+                    'status' => 404,
+                    'status_message' => 'No session found',
                 );
             return $data;
         }
