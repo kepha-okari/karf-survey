@@ -275,7 +275,7 @@ class ApiController extends Controller
 
                     foreach ($phone_numbers as $phone_number) {
                         # code...
-                        $this->sendSMS($survey->message, $phone_number->contact);
+                        #$this->sendSMS($survey->message, $phone_number->contact);
                     }
 
                 }
