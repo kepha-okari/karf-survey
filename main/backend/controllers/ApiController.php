@@ -327,18 +327,39 @@ class ApiController extends Controller
     }
 
 
+    public function pickTargetSession($msisdn){
+        $today = date('Y-m-d')." 00:00:00";
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
+        $sessions = SurveySessions::find()->where(['>=', 'inserted_at', $today])->orderBy(['id' => SORT_ASC])->all();
+        if($sessions){
+            foreach ($sessions as $session) {
+                $resp = Responses::find()->where(['msisdn' =>$msisdn])->andWhere(['session_id' => $session->id])->all();
+                if(!$resp){
+                    return $session;
+                }
+            }
+        }else{
+            $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+            return $session;
+        }
+    }
+
 
     public function actionGetCurrentSession() {
-        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
-        $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+        $msisdn = $_GET['msisdn'];
+        
+        #$session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+        #$session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['not in','msisdn',$msisdn])->orderBy(['id' => SORT_DESC])->one();
 
+        $session = $this->pickTargetSession($msisdn);
+        
         if ($session) {
             return $session;
-                }else {
-                $data =  array(
-                    'status' => 404,
-                    'status_message' => 'No session found',
-                );
+        }else {
+            $data =  array(
+                'status' => 404,
+                'status_message' => 'No session found',
+            );
             return $data;
         }
 
