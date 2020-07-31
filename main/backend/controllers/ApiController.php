@@ -337,7 +337,9 @@ class ApiController extends Controller
                 if(!$resp){
                     return $session;
                 }
+                
             }
+            return SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
         }else{
             $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
             return $session;
