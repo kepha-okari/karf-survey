@@ -261,7 +261,7 @@ class ApiController extends Controller
                     $phone_numbers = Contacts::find()->where(['group_id' => $survey->contact_group])->all();
 
                     #set the next survey session time
-                    $minutesToAdd = 720/($survey->frequency);
+                    $minutesToAdd = 60/($survey->frequency);
                     $date1 = str_replace('-', '/', $session->start_time);
                     $next_session = date('Y-m-d H:i:s',strtotime($date1 . "+{$minutesToAdd} minutes"));
 
