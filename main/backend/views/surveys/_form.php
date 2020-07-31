@@ -31,7 +31,7 @@ use backend\models\Groups;
     ) ?>
 
     <?= $form->field($model, 'frequency')->dropDownList(
-            ['1'=>"1",'2'=>"2",'3'=>"3",'4'=>"4"],
+            ['1'=>"1",'2'=>"2",'3'=>"3",'4'=>"4",'5'=>"5",'6'=>"6"],
             ['prompt'=>'Select number of times to notify respondents per hour']
     ) ?>
 
