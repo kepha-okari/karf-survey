@@ -453,14 +453,14 @@ class ApiController extends Controller
 
         $survey_id = $_GET['survey_id'];
         $question = $_GET['question'];
-        #$session_id = $_GET['session_id'];
+        $session_id = $_GET['session_id'];
         $response = $_GET['response'];
         $respondent = $_GET['respondent'];
         
       
         #$session = SurveySessions::find()->where(['survey_id' => $survey_id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
-        $session = $this->pickTargetSession($respondent);
-        $session_id = $session->id;
+        #$session = $this->pickTargetSession($respondent);
+        #$session_id = $session->id;
 
         #$sql = "INSERT INTO responses (survey_id, question, response, respondent ) VALUES ('$survey_id', '$question', '$response', '$respondent')";
         $sql = "INSERT INTO responses (survey_id, msisdn,  question_id, response, session_id ) VALUES ('$survey_id', '$respondent', '$question', '$response', '$session_id')";
