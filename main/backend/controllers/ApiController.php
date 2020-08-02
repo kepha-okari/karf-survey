@@ -69,6 +69,7 @@ class ApiController extends Controller
                     'get-current-survey' => ['GET'],
                     'get-current-session' => ['GET'],
                     'post-response' => ['POST'],
+                    'create-next-day-session' => ['GET'],
                     'send-notifications' => ['GET'],
                     'export-response' => ['GET'],
       
@@ -85,7 +86,7 @@ class ApiController extends Controller
      */
     public function beforeAction($action) {
         if ( $action->id == 'get-surveys' || $action->id == 'get-current-survey' || $action->id == 'get-current-session' || $action->id == 'fetch-questions' 
-        || $action->id == 'get-question' || $action->id == 'fetch-all -options' || $action->id == 'send-notifications' 
+        || $action->id == 'get-question' || $action->id == 'fetch-all -options' || $action->id == 'send-notifications' || $action->id == 'create-next-day-session' 
         || $action->id == 'get-options' ||  $action->id == 'post-response' ||  $action->id == 'export-response' ){
 
             $this->enableCsrfValidation = false;
@@ -200,6 +201,30 @@ class ApiController extends Controller
         $header.=$profile;
         echo $data.=$header;
 
+    }
+
+        
+    public function actionCreateNextDaySession() {
+
+        $survey = Surveys::find()->where(['is_active' => 1])->orderBy(['id' => SORT_DESC])->one();
+
+        if($survey) {
+            $session = SurveySessions::find()->where(['survey_id' => $survey->id])->andwhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+           
+            $sql = "UPDATE survey_sessions SET status=0 WHERE id='$session->id' ";
+            $saved = \Yii::$app->db->createCommand($sql)->execute();
+
+            $minutesToAdd = 60/($survey->frequency);
+            #$date1 = str_replace('-', '/', $session->start_time);
+            $start_time = date('Y-m-d')." 09:00:00";
+            $next_session = date('Y-m-d H:i:s',strtotime($start_time . "+{$minutesToAdd} minutes"));
+            $session_name = date('H:i:s', strtotime($start_time));
+            $sql = "INSERT INTO survey_sessions(survey_id, session_name, start_time) VALUES('$survey->id', '$session_name', '$next_session') ";
+            $saved = \Yii::$app->db->createCommand($sql)->execute();
+
+            return $next_session;
+
+        }
     }
 
 
