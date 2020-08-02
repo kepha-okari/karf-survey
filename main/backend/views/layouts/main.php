@@ -153,7 +153,7 @@ DashboardAsset::register($this);
                                       if($sessions){
                                         foreach ($sessions as $session) {
                                           # code...
-                                          $link = "http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response&session_id=".$session->id.">".date('H:i a', strtotime($session->session_name))." Session Responses</a>";
+                                          $link = "http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response&session_id=".$session->id.">".date('H:i a', strtotime($session->session_name))." Session</a>";
                                           echo '<li><a href=';
                                           echo    $link;
                                           echo  '</li>';
