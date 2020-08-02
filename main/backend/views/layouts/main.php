@@ -123,7 +123,60 @@ DashboardAsset::register($this);
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=groups/index"><i class="fa fa-"></i> Groups</a></li>
                 <li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=responses%2Findex&sort=-inserted_at"><i class="fa fa-"></i> Responses</a></li>
                 <li><a href="https://app.bongasms.co.ke/site/login"><i class="fa fa-"></i> BongaSMS</a></li>
-                <li class="active treeview">
+
+                <li>
+                  <ul class="sidebar-menu">
+                    <li class="treeview">
+                        <a href="#">
+                        <span>LAST 6 DAYS RESPONSES</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <?php
+                            $limit = 6;
+                            for ($x = 1; $x <= $limit; $x++) {
+                              $day = date("Y-m-d", time() -($x * 86400));
+
+
+                              $time_original = strtotime($day);
+                              $time_add      = $time_original + (3600*24); //add seconds of one day
+                              $next_day      = date("Y-m-d", $time_add);
+
+                              $dayOfWeek = date("l", strtotime($day));
+                              echo '<ul class="active treeview-menu">';
+                                echo' <li class=" active treeview">';
+                                  echo  '<a href="#"><span>'.$dayOfWeek.'</span> <i class="fa fa-angle-left pull-right"></i></a>';
+                              echo  '<ul class="treeview-menu">';
+
+                                      $today = date("Y-m-d");
+                                      #$sessions = SurveySessions::find()->where(['>=','inserted_at', $today])->limit(4)->orderBy(['id' => SORT_DESC])->all();
+                                      $sessions = SurveySessions::find()->where(['>=','inserted_at', $day])->andWhere(['<','inserted_at', $next_day])->orderBy(['id' => SORT_DESC])->all();
+
+                                      if($sessions){
+                                        foreach ($sessions as $session) {
+                                          # code...
+                                          $link = "http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response&session_id=".$session->id.">".date('H:i a', strtotime($session->session_name))." Session Responses</a>";
+                                          echo '<li><a href=';
+                                          echo    $link;
+                                          echo  '</li>';
+                                        }
+                                      }else{
+                                          echo '<li><a href="#"><i class="fa fa-"></i>No Survey Session</a></li>' ;
+
+                                      }
+                                      #echo '<li><a href="http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/export-response"><i class="fa fa-"></i> Download Responses</a></li>' 
+
+                                echo'</ul>';
+                              echo '</li>';
+                              
+                            echo '</ul>';
+                          }
+                          
+                        ?>
+
+                    </li>
+                  </ul>                
+                </li>
+
+                <li class="treeview">
                   <a href="#"><span>TODAY'S RESPONSES</span> <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
 
