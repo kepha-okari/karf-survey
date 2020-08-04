@@ -169,7 +169,11 @@ class ApiController extends Controller
         $quiz_items = "";
         foreach ($questions as $question) {
             # code...
+            if($question->id == 10){
+                $quiz_items.=",".strtoupper($question->title).",".strtoupper($question->title).",".strtoupper($question->title).",".strtoupper($question->title);
+            }else{
             $quiz_items.=",".strtoupper($question->title);
+            }
         }
         $header.=$quiz_items."\n";
 
@@ -178,21 +182,44 @@ class ApiController extends Controller
             $respondent = Responses::find()->where(['session_id'=>$session_id])->andWhere(['msisdn'=>$response])->one();
             
             $profile.=$respondent->survey_id.",".$respondent->msisdn.",".$respondent->inserted_at;
+
+            $header_quizes = Responses::find()->where(['survey_id' => $survey->id])->andWhere(['msisdn'=>$response->msisdn])
+                // ->andWhere(['question_id'=>11])
+                ->andWhere(['session_id'=>$session_id])->all();
+
+            $count = count($header_quizes);
+            $field =1;
+            $pos = 1;
+            foreach ($header_quizes as $hquis) {
+                # code...
+                if($field <= 4 ){
+                    if($hquis->question_id == 10 && $count > 0){
+                        $profile.=",".$hquis->response;
+                    }else{
+                        #$pos == 1? $profile.="NR":$profile.="NR".",";
+                        $profile.=","."NR";
+                    }
+                    $count--;
+                    $field++;
+                    $pos++;
+                }
+            }
+   
             $resp="";
             foreach ($questions as $question) {
                 # fetch this particular response from respondent if it exists
                 $attempt = Responses::find()->where(['survey_id' => $survey->id])->andWhere(['msisdn'=>$response->msisdn])
-                                            ->andWhere(['question_id'=>$question->id])
-                                            ->andWhere(['session_id'=>$session_id])
-                                            ->orderBy(['id' => SORT_DESC])->one();
+                                ->andWhere(['question_id'=>$question->id])
+                                ->andWhere(['session_id'=>$session_id])
+                                ->orderBy(['id' => SORT_DESC])->one();
 
-
-                if($attempt){
+                if($question->id !== 10){                
+                    if($attempt){
                         $resp.=",".$attempt->response;
-                }else{
-                    $resp.=","."NR";
+                    }else{
+                        $resp.=","."NR";
+                    }
                 }
-                #$resp.=",".($response->response?$response->response:"NR");
             }
             $profile.=$resp."\n";
             
