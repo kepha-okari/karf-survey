@@ -243,7 +243,7 @@ class ApiController extends Controller
 
             $minutesToAdd = 60/($survey->frequency);
             #$date1 = str_replace('-', '/', $session->start_time);
-            $start_time = date('Y-m-d')." 06:00:00";
+            $start_time = date('Y-m-d')." 07:00:00";
             $next_session = date('Y-m-d H:i:s',strtotime($start_time . "+{$minutesToAdd} minutes"));
             $session_name = date('H:i:s', strtotime($start_time));
             $sql = "INSERT INTO survey_sessions(survey_id, session_name, start_time) VALUES('$survey->id', '$session_name', '$next_session') ";

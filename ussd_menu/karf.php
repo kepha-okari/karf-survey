@@ -23,6 +23,7 @@ class Menu
     {
         $this->MSISDN = $MSISDN;
         $this->USSD_STRING = $USSD_STRING;
+        $this->BASE_URL = 'http://104.236.11.199/survey/main/backend/web/index.php';
 
         if (isset($_SESSION['NEXT_LEVEL'])) {
             $this->EXTRA = $_SESSION['EXTRA'];
@@ -263,24 +264,24 @@ class Menu
 
 
     public function getSurvey() {
-        $response = $this->getRequest('http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/get-current-survey');
+        $response = $this->getRequest($this->BASE_URL.'?r=api/get-current-survey');
         return $response;
     }
 
     public function saveResponse($data) {
-        $response = $this->postRequest('http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/post-response&'.http_build_query($data), $data);
+        $response = $this->postRequest($this->BASE_URL.'?r=api/post-response&'.http_build_query($data), $data);
         return $response;
     }
 
     public function fetchAllQuestions() {
-        $response = $this->getRequest('http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/fetch-questions');
+        $response = $this->getRequest($this->BASE_URL.'?r=api/fetch-questions');
         return $response;
     }
 
 
     public function findOption($question_id) {
         $payload = ['question_id' => $question_id];
-        $response = $this->getRequest('http://104.236.11.199/questionnaire/main/backend/web/index.php?r=api/get-options&'.http_build_query($payload));
+        $response = $this->getRequest($this->BASE_URL.'?r=api/get-options&'.http_build_query($payload));
         return $response;
     }
 
